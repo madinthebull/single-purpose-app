@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import Landing from './Components/Landing'
 import EntryLog from './Components/EntryLog'
 import './App.scss'
 
@@ -36,7 +38,14 @@ class App extends Component {
 
   render() {
     // pass dummy data to Entry Log component
-    return <EntryLog entries={this.state.entries} />;
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path='/' render={() => <Landing /> } />
+          <Route exact path='/log' render= {() => <EntryLog entries={this.state.entries} /> } />
+        </Switch>
+      </BrowserRouter>
+    );
   }
 }
 
