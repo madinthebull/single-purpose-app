@@ -30,8 +30,6 @@ export class AddEntry extends Component {
       measurement
     }
 
-    this.props.createEntry(newEntry);
-
     //reset form
     this.setState({
       date: '',
@@ -41,8 +39,8 @@ export class AddEntry extends Component {
         { text: 'Add Button', id: 2, },
       ],
     })
-
   }
+
   render() {
     // Get timestamp
     moment().format("Do YYYY, h:mm:ss a");
@@ -55,10 +53,13 @@ export class AddEntry extends Component {
       <React.Fragment>
         {/* overlay button */}
         <button>New Entry</button>
+
         <h2>Current Date</h2>
         {/* <p>{date}</p> */}
+
         <h2>Current Time</h2>
         {/* <p>{timestamp}</p> */}
+
         {/* Measurement input */}
         <form>
           <textarea
@@ -70,6 +71,7 @@ export class AddEntry extends Component {
           >
             Enter your measurement here.
           </textarea>
+
           {/* Cancel and Add Button */}
           {buttons.map(button => (
             <Button text={button.text} onSubmit={this.onFormSubmit} key={button.id} />

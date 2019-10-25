@@ -3,6 +3,7 @@ import React, { Component } from "react";
 
 class Button extends Component {
   render() {
+    // destructure props
     const { text } = this.props;
 
     return (

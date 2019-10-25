@@ -5,6 +5,7 @@ import './App.scss'
 class App extends Component {
   state = {
     entries: [
+      // dummy data
       {
         id: 1,
         amount: "1/2 cup",
@@ -34,6 +35,7 @@ class App extends Component {
   };
 
   render() {
+    // pass dummy data to Entry Log component
     return <EntryLog entries={this.state.entries} />;
   }
 }

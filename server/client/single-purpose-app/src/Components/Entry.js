@@ -3,9 +3,8 @@ import React, { Component } from 'react'
 
 class Entry extends Component {
   render () {
-
+    // destructure props
     const { entry } = this.props;
-
 
     return (
       <React.Fragment>
