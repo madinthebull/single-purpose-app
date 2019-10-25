@@ -8,11 +8,14 @@ class Entry extends Component {
 
     return (
       <React.Fragment>
-        <div>
-          <p>{entry.id}</p>
-          <p>{entry.amount}</p>
-          <p>{entry.date}</p>
-        </div>
+        <tr className="mdc-data-table__row">
+          <td className="mdc-data-table__cell">{entry.date}</td>
+          <td className="mdc-data-table__cell mdc-data-table__cell--numeric">{entry.time}</td>
+          <td className="mdc-data-table__cell mdc-data-table__cell--numeric">
+            {entry.amount}
+          </td>
+          <td className="mdc-data-table__cell">{entry.user}</td>
+        </tr>
       </React.Fragment>
     );
   }

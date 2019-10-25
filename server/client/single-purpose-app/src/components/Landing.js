@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import PropTypes from "prop-types";
-import Button from './Button'
+import ButtonComponent from './ButtonComponent'
 import { Link } from 'react-router-dom'
 
 export class Landing extends Component {
@@ -10,7 +10,7 @@ export class Landing extends Component {
       <React.Fragment>
         <h1>Fatcat Landing Page</h1>
         <Link to="/login">
-          <Button text={"Get Started"} />
+          <ButtonComponent text={"Get Started"} classNames={'mdc-button--raised'} />
         </Link>
       </React.Fragment>
     );

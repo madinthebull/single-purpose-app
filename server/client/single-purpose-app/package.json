@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material/react-button": "^0.15.0",
     "@material/react-fab": "^0.15.0",
+    "@material/react-text-field": "^0.15.0",
     "@types/classnames": "^2.2.9",
     "@types/node": "^12.11.7",
     "@types/react": "^16.9.11",

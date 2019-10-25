@@ -10,10 +10,48 @@ export class EntryLog extends Component {
 
     return (
       <React.Fragment>
+        <div className="mdc-data-table">
+          <table className="mdc-data-table__table" aria-label="">
+            <thead>
+              <tr className="mdc-data-table__header-row">
+                <th
+                  className="mdc-data-table__header-cell"
+                  role="columnheader"
+                  scope="col"
+                >
+                  Date
+                </th>
+                <th
+                  className="mdc-data-table__header-cell mdc-data-table__header-cell--numeric"
+                  role="columnheader"
+                  scope="col"
+                >
+                  Time
+                </th>
+                <th
+                  className="mdc-data-table__header-cell mdc-data-table__header-cell--numeric"
+                  role="columnheader"
+                  scope="col"
+                >
+                  Amount
+                </th>
+                <th
+                  className="mdc-data-table__header-cell"
+                  role="columnheader"
+                  scope="col"
+                >
+                  User
+                </th>
+              </tr>
+            </thead>
+            <tbody className="mdc-data-table__content">
+              {entries.map(entry => (
+                <Entry key={entry.id} entry={entry} />
+              ))}
+            </tbody>
+          </table>
+        </div>
         {/* pass props to Entry component  */}
-        {entries.map(entry =>
-        <Entry key={entry.id} entry={entry} />
-        )}
 
         <AddEntry />
       </React.Fragment>

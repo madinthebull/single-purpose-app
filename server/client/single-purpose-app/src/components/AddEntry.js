@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Button from './Button';
-import FloatingButton from './FloatingButton'
+import ButtonComponent from './ButtonComponent';
+import FloatingButton from './FloatingButton';
+import TextField, { HelperText, Input } from "@material/react-text-field";
 import moment from 'moment'
 // import PropTypes from "prop-types";
 
@@ -8,10 +9,12 @@ export class AddEntry extends Component {
   state = {
     date: '',
     measurement: '',
+    fab: [
+      { text: 'Add a New Entry', id: 0, },
+    ],
     buttons: [
-      { text: 'New Entry', id: 1, },
-      { text: 'Cancel', id: 2, },
-      { text: 'Add Button', id: 3, },
+      { text: 'Cancel', id: 1, },
+      { text: 'Add Entry', id: 2, },
     ],
   }
 
@@ -32,19 +35,35 @@ export class AddEntry extends Component {
       measurement
     }
 
-    console.log(newEntry);
     //reset form
     this.setState({
-      date: '',
-      measurement: '',
-      fab: [
-        { text: 'New Entry', id:0, },
-      ],
+      date: "",
+      measurement: "",
+      fab: [{ text: "New Entry", id: 0 }],
       buttons: [
-        { text: 'Cancel', id: 0, },
-        { text: 'Add Button', id: 1, },
-      ],
-    })
+        {
+          text: "Cancel",
+          id: 0,
+          outlined: true,
+          raised: true,
+          unelevated: false,
+          classNames: ""
+        },
+        {
+          text: "Add Button",
+          id: 1,
+          outlined: false,
+          raised: true,
+          unelevated: false,
+          classNames: ""
+        }
+      ]
+    });
+  }
+
+  showEntryForm = e => {
+    e.preventDefault();
+    console.log(e.target);
   }
 
   render() {
@@ -55,36 +74,49 @@ export class AddEntry extends Component {
     // console.log(timestamp);
 
     const { buttons } = this.state;
-    // const { fab } = this.state;
+    const { fab } = this.state;
+
 
     return (
       <React.Fragment>
-        {/* overlay button */}
-        {/* <FloatingButton text={fab[0].text} key={fab[0].id}/> */}
+        <div style={{ height: "100vh" }}>
+          {/* overlay button */}
+          <FloatingButton text={fab[0].text} key={fab[0].id} />
+          <div
+          style={{ display: "", backgroundColor: "#268286" }}
+          onClick={this.showEntryForm}>
+            <p>Current Date</p>
+            {/* <p>{date}</p> */}
 
-        <h2>Current Date</h2>
-        {/* <p>{date}</p> */}
+            <p>Current Time</p>
+            {/* <p>{timestamp}</p> */}
 
-        <h2>Current Time</h2>
-        {/* <p>{timestamp}</p> */}
+            {/* Measurement input */}
+            <form>
+              <TextField
+                label="measurement"
+                helperText={<HelperText>Enter measurement here!</HelperText>}
+              >
+                <Input
+                  value={this.state.measurement}
+                  onChange={this.onInputChange}
+                ></Input>
+              </TextField>
 
-        {/* Measurement input */}
-        <form>
-          <textarea
-            name="measurement"
-            rows="10"
-            cols="30"
-            value={this.state.measurement}
-            onChange={this.onInputChange}
-          >
-            Enter your measurement here.
-          </textarea>
-
-          {/* Fab, Cancel and Add Button */}
-          {buttons.map(button => (
-            <Button text={button.text} onSubmit={this.onFormSubmit} key={button.id} />
-          ))}
-        </form>
+              {/* Cancel and Add Button */}
+              {buttons.map(button => (
+                <ButtonComponent
+                  text={button.text}
+                  onSubmit={this.onFormSubmit}
+                  key={button.id}
+                  outlined={button.outlined}
+                  raised={button.raised}
+                  unelevated={button.unelevated}
+                />
+              ))}
+            </form>
+          </div>
+        </div>
       </React.Fragment>
     );
   }
