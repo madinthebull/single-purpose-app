@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from './Button';
+import FloatingButton from './FloatingButton'
 import moment from 'moment'
 // import PropTypes from "prop-types";
 
@@ -53,10 +54,7 @@ export class AddEntry extends Component {
     return (
       <React.Fragment>
         {/* overlay button */}
-        <button className="mdc-fab mdc-fab--extended">
-          <span class="material-icons mcd-fab__icon">add</span>
-          <span className="mcd-fab__label">New Entry</span>
-        </button>
+        <FloatingButton text={'New Entry'}/>
 
         <h2>Current Date</h2>
         {/* <p>{date}</p> */}
