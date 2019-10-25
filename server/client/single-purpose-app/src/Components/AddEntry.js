@@ -30,6 +30,7 @@ export class AddEntry extends Component {
       measurement
     }
 
+    console.log(newEntry);
     //reset form
     this.setState({
       date: '',
@@ -52,7 +53,10 @@ export class AddEntry extends Component {
     return (
       <React.Fragment>
         {/* overlay button */}
-        <button>New Entry</button>
+        <button className="mdc-fab mdc-fab--extended">
+          <span class="material-icons mcd-fab__icon">add</span>
+          <span className="mcd-fab__label">New Entry</span>
+        </button>
 
         <h2>Current Date</h2>
         {/* <p>{date}</p> */}

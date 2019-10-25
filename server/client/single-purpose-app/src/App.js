@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import Landing from './Components/Landing'
-import EntryLog from './Components/EntryLog'
+import Landing from './components/Landing'
+import EntryLog from './components/EntryLog'
 import './App.scss'
 
 class App extends Component {
