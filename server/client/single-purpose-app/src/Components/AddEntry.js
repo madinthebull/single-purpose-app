@@ -9,8 +9,9 @@ export class AddEntry extends Component {
     date: '',
     measurement: '',
     buttons: [
-      { text: 'Cancel', id: 1, },
-      { text: 'Add Button', id: 2, },
+      { text: 'New Entry', id: 1, },
+      { text: 'Cancel', id: 2, },
+      { text: 'Add Button', id: 3, },
     ],
   }
 
@@ -36,9 +37,12 @@ export class AddEntry extends Component {
     this.setState({
       date: '',
       measurement: '',
+      fab: [
+        { text: 'New Entry', id:0, },
+      ],
       buttons: [
-        { text: 'Cancel', id: 1, },
-        { text: 'Add Button', id: 2, },
+        { text: 'Cancel', id: 0, },
+        { text: 'Add Button', id: 1, },
       ],
     })
   }
@@ -51,10 +55,12 @@ export class AddEntry extends Component {
     // console.log(timestamp);
 
     const { buttons } = this.state;
+    // const { fab } = this.state;
+
     return (
       <React.Fragment>
         {/* overlay button */}
-        <FloatingButton text={'New Entry'}/>
+        {/* <FloatingButton text={fab[0].text} key={fab[0].id}/> */}
 
         <h2>Current Date</h2>
         {/* <p>{date}</p> */}
@@ -74,7 +80,7 @@ export class AddEntry extends Component {
             Enter your measurement here.
           </textarea>
 
-          {/* Cancel and Add Button */}
+          {/* Fab, Cancel and Add Button */}
           {buttons.map(button => (
             <Button text={button.text} onSubmit={this.onFormSubmit} key={button.id} />
           ))}
