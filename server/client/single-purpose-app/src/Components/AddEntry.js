@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from './Button';
+import moment from 'moment'
 // import PropTypes from "prop-types";
 
 export class AddEntry extends Component {
@@ -46,8 +47,8 @@ export class AddEntry extends Component {
     // Get timestamp
     moment().format("Do YYYY, h:mm:ss a");
     // Get time
-    var date = timestamp;
-    console.log(timestamp);
+    // var date = timestamp;
+    // console.log(timestamp);
 
     const { buttons } = this.state;
     return (
