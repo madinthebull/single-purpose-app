@@ -1,3 +1,16 @@
+// Material design components
 @import "@material/react-fab/index.scss";
 @import "@material/react-button/index.scss";
 @import '@material/react-text-field/index.scss';
+@import '@material/react-dialog/index.scss';
+
+// Base
+@import './assets/sass/base/typography';
+
+// Utilities/Abstracts
+@import './assets/sass/utilities/variables';
+@import './assets/sass/utilities/mixins';
+
+// Pages
+@import './assets/sass/pages/landing';
+@import './assets/sass/pages/addEntry';
