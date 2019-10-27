@@ -5,6 +5,7 @@ import EntryLog from './components/EntryLog'
 import Login from './components/Login'
 import SignUp from './components/SignUp'
 
+import axios from 'axios'
 import './App.scss'
 
 class App extends Component {
@@ -43,6 +44,21 @@ class App extends Component {
       },
     ]
   };
+
+  // componentDidMount() {
+  //   axios
+  //     .get("https://dev-fatcat.pantheonsite.io/measurements", {
+  //       headers: { "X-Requested-With": "XMLHttpRequest" }
+  //     })
+  //     .then(response =>
+  //       this.setState({
+  //         id: response.data.id,
+  //         measurement: response.data.measurement,
+  //         date: response.data.date
+  //       })
+  //     );
+  // }
+
 
   render() {
     // pass dummy data to Entry Log component
