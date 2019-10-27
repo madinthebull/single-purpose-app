@@ -1,7 +1,13 @@
 import React, { Component } from "react";
+import _ from 'lodash';
 // import components to render
 import Entry from './Entry'
 import AddEntry from './AddEntry'
+
+// import { connect } from "react-redux";
+// import { bindActionCreators } from "redux";
+// import { fetchEntries } from "../actions";
+
 
 // import Material Design components
 import Fab from "@material/react-fab";
@@ -15,6 +21,19 @@ export class EntryLog extends Component {
     showEntryForm: false,
   }
 
+
+  // componentDidMount() {
+  //   this.props.fetchEntries();
+  // }
+
+  // renderEntries() {
+  //   console.log(this.props.entries);
+  //   return _.map(this.props.entries, entry => {
+  //     return (
+  //       <Entry key={entry.id} entry={entry} />
+  //     )})
+  // }
+
   showEntryForm = e => {
     e.preventDefault();
 
@@ -23,10 +42,8 @@ export class EntryLog extends Component {
   }
 
   render() {
-    // destructure props
-    const { entries } = this.props;
+    // destructure state
     const { fab, showEntryForm } = this.state;
-
     return (
       <React.Fragment>
         <div className="mdc-data-table">
@@ -64,9 +81,7 @@ export class EntryLog extends Component {
               </tr>
             </thead>
             <tbody className="mdc-data-table__content">
-              {entries.map(entry => (
-                <Entry key={entry.id} entry={entry} />
-              ))}
+              {/* {this.renderEntries()} */}
             </tbody>
           </table>
         </div>
@@ -88,5 +103,16 @@ export class EntryLog extends Component {
     );
   }
 }
+
+// function mapStateToProps(state) {
+//   return { entries: state.entries }
+// }
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({ fetchEntries }, dispatch)
+// }
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(EntryLog)
 
 export default EntryLog;
