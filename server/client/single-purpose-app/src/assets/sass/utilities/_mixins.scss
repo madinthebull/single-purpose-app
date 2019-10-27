@@ -1,0 +1,13 @@
+@mixin for-size($size) {
+  @if $size == phone-only {
+    @media (max-width: ($break-md - 1)) { @content; }
+  } @else if $size == phone-and-tablet {
+    @media (min-width: $break-sm) and (max-width: $break-md) { @content; }
+  } @else if $size == tablet-up {
+    @media (min-width: $break-md) { @content; }
+  } @else if $size == tablet-only {
+    @media (min-width: $break-md) and (max-width: ($break-lg - 1)) { @content; }
+  } @else if $size == desktop-up {
+    @media (min-width: $break-lg) { @content; }
+  }
+}

@@ -1,0 +1,18 @@
+@include for-size(phone-only) {
+  .page {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .landing-page {
+    .page__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  }
+}
+
+

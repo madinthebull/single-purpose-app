@@ -1,0 +1,20 @@
+.addEntryDialog {
+  &__dateTime {
+    &--label {
+      // color: $primaryColor;
+      font-size: 14px;
+      line-height: 17px;
+      text-align: center;
+    }
+    &--display {
+      font-size: 50px;
+      line-height: 61px;
+      letter-spacing: -0.03em;
+      font-family: 'Inter', sans-serif;
+      margin: 0px;
+      text-align: center;
+      // color: $primaryColor;
+
+    }
+  }
+}
