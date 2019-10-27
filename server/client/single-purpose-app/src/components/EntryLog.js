@@ -1,12 +1,31 @@
 import React, { Component } from "react";
-// import PropTypes from "prop-types";
+// import components to render
 import Entry from './Entry'
 import AddEntry from './AddEntry'
 
+// import Material Design components
+import Fab from "@material/react-fab";
+import Dialog from "@material/react-dialog";
+
+// import PropTypes from "prop-types";
+
 export class EntryLog extends Component {
+  state = {
+    fab: { text: 'Add a New Entry', id: 0, },
+    showEntryForm: false,
+  }
+
+  showEntryForm = e => {
+    e.preventDefault();
+
+    // show Add Entry form on click
+    this.setState({showEntryForm: true});
+  }
+
   render() {
     // destructure props
     const { entries } = this.props;
+    const { fab, showEntryForm } = this.state;
 
     return (
       <React.Fragment>
@@ -51,9 +70,20 @@ export class EntryLog extends Component {
             </tbody>
           </table>
         </div>
-        {/* pass props to Entry component  */}
+        {/* overlay button */}
+        <Fab
+          className="mdc-fab mdc-fab--extended"
+          icon={<span className="material-icons">add</span>}
+          textLabel={<span className="mcd-fab__label">{fab.text}</span>}
+          style={{ position: "absolute", bottom: "15px" }}
+          onClick={this.showEntryForm}
+        ></Fab>
 
-        <AddEntry />
+        {/* pass props to Entry component  */}
+        <Dialog open={showEntryForm}>
+          <AddEntry />
+        </Dialog>
+        {/* {showEntryForm ? <AddEntry /> : null} */}
       </React.Fragment>
     );
   }

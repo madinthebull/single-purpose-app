@@ -1,17 +1,24 @@
 import React, { Component } from "react";
 import ButtonComponent from './ButtonComponent';
-import FloatingButton from './FloatingButton';
+
+// import Material Design components
 import TextField, { HelperText, Input } from "@material/react-text-field";
+import {
+  DialogContent,
+  DialogFooter,
+  DialogButton
+} from "@material/react-dialog";
+
+// import libraries
 import moment from 'moment'
+import axios from 'axios'
+
 // import PropTypes from "prop-types";
 
 export class AddEntry extends Component {
   state = {
     date: '',
     measurement: '',
-    fab: [
-      { text: 'Add a New Entry', id: 0, },
-    ],
     buttons: [
       { text: 'Cancel', id: 1, },
       { text: 'Add Entry', id: 2, },
@@ -35,88 +42,56 @@ export class AddEntry extends Component {
       measurement
     }
 
+    // axios
+    //   .post("https://dev-fatcat.pantheonsite.io/measurements", { newEntry })
+    //   .then(function(response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
+
     //reset form
     this.setState({
       date: "",
       measurement: "",
-      fab: [{ text: "New Entry", id: 0 }],
-      buttons: [
-        {
-          text: "Cancel",
-          id: 0,
-          outlined: true,
-          raised: true,
-          unelevated: false,
-          classNames: ""
-        },
-        {
-          text: "Add Button",
-          id: 1,
-          outlined: false,
-          raised: true,
-          unelevated: false,
-          classNames: ""
-        }
-      ]
     });
-  }
-
-  showEntryForm = e => {
-    e.preventDefault();
-    console.log(e.target);
   }
 
   render() {
     // Get timestamp
-    moment().format("Do YYYY, h:mm:ss a");
-    // Get time
-    // var date = timestamp;
-    // console.log(timestamp);
-
-    const { buttons } = this.state;
-    const { fab } = this.state;
-
+    const date = new Date();
+    const currentDate = moment(date).format('L');
+    const currentTime = moment(date).format('LT');
 
     return (
       <React.Fragment>
-        <div style={{ height: "100vh" }}>
-          {/* overlay button */}
-          <FloatingButton text={fab[0].text} key={fab[0].id} />
-          <div
-          style={{ display: "", backgroundColor: "#268286" }}
-          onClick={this.showEntryForm}>
-            <p>Current Date</p>
-            {/* <p>{date}</p> */}
+        <DialogContent>
+          <p className="addEntryDialog__dateTime--label">Current Date</p>
+          <p className="addEntryDialog__dateTime--display">{currentDate}</p>
 
-            <p>Current Time</p>
-            {/* <p>{timestamp}</p> */}
+          <p className="addEntryDialog__dateTime--label">Current Time</p>
+          <p className="addEntryDialog__dateTime--display">{currentTime}</p>
 
-            {/* Measurement input */}
-            <form>
-              <TextField
-                label="measurement"
-                helperText={<HelperText>Enter measurement here!</HelperText>}
-              >
-                <Input
-                  value={this.state.measurement}
-                  onChange={this.onInputChange}
-                ></Input>
-              </TextField>
-
-              {/* Cancel and Add Button */}
-              {buttons.map(button => (
-                <ButtonComponent
-                  text={button.text}
-                  onSubmit={this.onFormSubmit}
-                  key={button.id}
-                  outlined={button.outlined}
-                  raised={button.raised}
-                  unelevated={button.unelevated}
-                />
-              ))}
-            </form>
-          </div>
-        </div>
+          {/* Measurement input */}
+          <form>
+            <TextField
+              label="measurement"
+              helperText={<HelperText>Enter measurement here!</HelperText>}
+            >
+              <Input
+                value={this.state.measurement}
+                onChange={this.onInputChange}
+              />
+            </TextField>
+          </form>
+        </DialogContent>
+        <DialogFooter>
+          <DialogButton action="dismiss">Dismiss</DialogButton>
+          <DialogButton action="accept" isDefault>
+            Accept
+          </DialogButton>
+        </DialogFooter>
       </React.Fragment>
     );
   }
