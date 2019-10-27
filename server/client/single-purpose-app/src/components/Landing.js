@@ -9,8 +9,8 @@ export class Landing extends Component {
 
     return (
       <div className="page landing-page">
+        <img className="logo" src={logo} alt="Logo" />
         <div className="page__content">
-          <img src={logo} alt="Logo" />
           <p>
             Track when you last completed an important task. Never forget when
             you last fed the cat again.

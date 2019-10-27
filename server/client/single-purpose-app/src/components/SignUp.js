@@ -35,46 +35,57 @@ export class SignUp extends Component {
     const { buttons } = this.state;
 
     return (
-      <React.Fragment>
-        <img src={logo} alt="Logo" style={{ margin:'50px' }} />
-        <form>
-          <TextField
-            label="Username"
-            helperText={<HelperText>Enter a username.</HelperText>}
-          >
-            <Input value={this.state.username} onChange={this.onInputChange} />
-          </TextField>
-          <br />
-          <TextField
-            label="Create a password"
-            trailingIcon={<span className="material-icons">visibility</span>}
-            helperText={<HelperText>Enter a password.</HelperText>}
-          >
-            <Input value={this.state.passwordConfirmation} onChange={this.onInputChange} />
-          </TextField>
-          <br />
-          <TextField
-            label="Confirm password"
-            trailingIcon={<span className="material-icons">visibility</span>}
-            helperText={<HelperText>Enter your password again.</HelperText>}
-          >
-            <Input value={this.state.username} onChange={this.onInputChange} />
-          </TextField>
-          <br />
-
-          {buttons.map(button => (
-            <Link to="/log">
-              <ButtonComponent
-                text={button.text}
-                key={button.id}
-                outlined={button.outlined}
-                raised={button.raised}
-                unelevated={button.unelevated}
+      <div className="page signUp-page">
+        <img className="logo" src={logo} alt="Logo" />
+        <div className="page__content">
+          <form>
+            <TextField
+              label="Username"
+              helperText={<HelperText>Enter a username.</HelperText>}
+            >
+              <Input
+                value={this.state.username}
+                onChange={this.onInputChange}
               />
-            </Link>
-          ))}
-        </form>
-      </React.Fragment>
+            </TextField>
+            <br />
+            <TextField
+              label="Create a password"
+              trailingIcon={<span className="material-icons">visibility</span>}
+              helperText={<HelperText>Enter a password.</HelperText>}
+            >
+              <Input
+                value={this.state.passwordConfirmation}
+                onChange={this.onInputChange}
+              />
+            </TextField>
+            <br />
+            <TextField
+              label="Confirm password"
+              trailingIcon={<span className="material-icons">visibility</span>}
+              helperText={<HelperText>Enter your password again.</HelperText>}
+            >
+              <Input
+                value={this.state.username}
+                onChange={this.onInputChange}
+              />
+            </TextField>
+            <br />
+
+            {buttons.map(button => (
+              <Link to="/log">
+                <ButtonComponent
+                  text={button.text}
+                  key={button.id}
+                  outlined={button.outlined}
+                  raised={button.raised}
+                  unelevated={button.unelevated}
+                />
+              </Link>
+            ))}
+          </form>
+        </div>
+      </div>
     );
   }
 }

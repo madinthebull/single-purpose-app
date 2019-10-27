@@ -1,16 +1,39 @@
-@include for-size(phone-only) {
-  .page {
-    margin-left: 20px;
-    margin-right: 20px;
+.page {
+  @include for-size(phone-only) {
+    margin-left: 45px;
+    margin-right: 45px;
+  }
+}
+
+p {
+  color: $secondaryColor;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.logo {
+  flex-grow: 2;
+}
+
+.landing-page,
+.login-page,
+.signUp-page {
+  @include for-size(phone-only) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
 
-  .landing-page {
-    .page__content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+  .page__content {
+    flex-grow: 1;
+
+    p {
+      text-align: center;
+      padding-left: 2vw;
+      padding-right: 2vw;
+      margin-bottom: 25px;
     }
   }
 }

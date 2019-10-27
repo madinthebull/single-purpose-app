@@ -5,12 +5,12 @@
 @import '@material/react-dialog/index.scss';
 
 // Base
-@import './assets/sass/base/typography';
+@import './base/typography.scss';
 
 // Utilities/Abstracts
-@import './assets/sass/utilities/variables';
-@import './assets/sass/utilities/mixins';
+@import './utilities/variables';
+@import './utilities/mixins';
 
 // Pages
-@import './assets/sass/pages/landing';
-@import './assets/sass/pages/addEntry';
+@import './pages/landing';
+@import './pages/addEntry';
