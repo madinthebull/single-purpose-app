@@ -19,6 +19,8 @@ export class AddEntry extends Component {
   state = {
     date: '',
     measurement: '',
+    user: '',
+    id: '',
     buttons: [
       { text: 'Cancel', id: 1, },
       { text: 'Add Entry', id: 2, },
@@ -28,18 +30,21 @@ export class AddEntry extends Component {
   // As data is entered, capture in state
   onInputChange = e => {
     this.setState({ [e.target.name]: e.target.value })
+    this.setState({user: 'Madeline', id: '4'})
   }
 
   // On form submit, send entry data to db
   onFormSubmit = e => {
     const {
       date,
-      measurement
+      measurement, user, id
     } = this.state
 
     const newEntry = {
       date,
-      measurement
+      measurement,
+      user,
+      id,
     }
 
     // axios
@@ -51,10 +56,16 @@ export class AddEntry extends Component {
     //     console.log(error);
     //   });
 
+    var handleToUpdate = this.props.handleToUpdate;
+    console.log(handleToUpdate)
+    handleToUpdate(newEntry);
+
     //reset form
     this.setState({
       date: "",
       measurement: "",
+      user: '',
+      id: '',
     });
   }
 
@@ -74,12 +85,14 @@ export class AddEntry extends Component {
           <p className="addEntryDialog__dateTime--display">{currentTime}</p>
 
           {/* Measurement input */}
-          <form>
+          <form onSubmit={this.onFormSubmit}>
             <TextField
               label="measurement"
+              type="text"
               helperText={<HelperText>Enter measurement here!</HelperText>}
             >
               <Input
+                name="measurement"
                 value={this.state.measurement}
                 onChange={this.onInputChange}
               />

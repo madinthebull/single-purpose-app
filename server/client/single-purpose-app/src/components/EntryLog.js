@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from 'axios';
+
 // import components to render
 import Entry from './Entry'
 import AddEntry from './AddEntry'
@@ -10,9 +12,29 @@ import Dialog from "@material/react-dialog";
 // import PropTypes from "prop-types";
 
 export class EntryLog extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     fab: { text: 'Add a New Entry', id: 0, },
     showEntryForm: false,
+    entries: [],
+  }
+
+  componentDidMount() {
+    axios
+      .get("https://dev-fatcat.pantheonsite.io/measurements", {
+        headers: {
+          Accept: "application/hal+json",
+          Authorization: "Basic ZmF0Y2F0OmZhdGNhdA=="
+        }
+      })
+      .then(response =>
+        this.setState({
+          entries: response.data
+        })
+      );
   }
 
   showEntryForm = e => {
@@ -22,10 +44,22 @@ export class EntryLog extends Component {
     this.setState({showEntryForm: true});
   }
 
+  handleToUpdate = (newEntry) => {
+    console.log('newEntry', newEntry);
+    this.setState({ entries: [...this.state.entries, newEntry] });
+  }
+
+  componentDidUpdate(prevState) {
+    console.log(prevState);
+    // Typical usage (don't forget to compare props):
+    // if (this.state.entities.length !== prevState.entities.length) {
+    //   this.fetchData(this.props.entities);
+    // }
+  }
+
   render() {
     // destructure props
-    const { entries } = this.props;
-    const { fab, showEntryForm } = this.state;
+    const { fab, showEntryForm, entries } = this.state;
 
     return (
       <React.Fragment>
@@ -81,7 +115,7 @@ export class EntryLog extends Component {
 
         {/* pass props to Entry component  */}
         <Dialog open={showEntryForm}>
-          <AddEntry />
+          <AddEntry handleToUpdate={this.handleToUpdate} />
         </Dialog>
         {/* {showEntryForm ? <AddEntry /> : null} */}
       </React.Fragment>
