@@ -29,8 +29,9 @@ export class AddEntry extends Component {
 
   // As data is entered, capture in state
   onInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value })
-    this.setState({user: 'Madeline', id: '4'})
+    var date = new Date();
+    this.setState({ [e.target.name]: e.target.value });
+    this.setState({user: 'Madeline', id: '4', date: date});
   }
 
   // On form submit, send entry data to db
@@ -45,8 +46,9 @@ export class AddEntry extends Component {
       measurement,
       user,
       id,
-    }
+    };
 
+    console.log('newEntry', newEntry);
     // axios
     //   .post("https://dev-fatcat.pantheonsite.io/measurements", { newEntry })
     //   .then(function(response) {
@@ -56,14 +58,10 @@ export class AddEntry extends Component {
     //     console.log(error);
     //   });
 
-    var handleToUpdate = this.props.handleToUpdate;
-    console.log(handleToUpdate)
-    handleToUpdate(newEntry);
-
     //reset form
     this.setState({
-      date: "",
-      measurement: "",
+      date: '',
+      measurement: '',
       user: '',
       id: '',
     });
@@ -74,7 +72,6 @@ export class AddEntry extends Component {
     const date = new Date();
     const currentDate = moment(date).format('L');
     const currentTime = moment(date).format('LT');
-
     return (
       <React.Fragment>
         <DialogContent>
@@ -85,7 +82,7 @@ export class AddEntry extends Component {
           <p className="addEntryDialog__dateTime--display">{currentTime}</p>
 
           {/* Measurement input */}
-          <form onSubmit={this.onFormSubmit}>
+          <form>
             <TextField
               label="measurement"
               type="text"
@@ -101,7 +98,7 @@ export class AddEntry extends Component {
         </DialogContent>
         <DialogFooter>
           <DialogButton action="dismiss">Dismiss</DialogButton>
-          <DialogButton action="accept" isDefault>
+          <DialogButton action="accept" isDefault onClick={this.onFormSubmit}>
             Accept
           </DialogButton>
         </DialogFooter>

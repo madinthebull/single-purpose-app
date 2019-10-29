@@ -31,6 +31,12 @@ export class SignUp extends Component {
       }
     ]
   };
+
+  onInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value })
+    this.setState({user: 'Madeline', id: '4'})
+  }
+
   render() {
     const { buttons } = this.state;
 
@@ -44,6 +50,7 @@ export class SignUp extends Component {
               helperText={<HelperText>Enter a username.</HelperText>}
             >
               <Input
+                name="username"
                 value={this.state.username}
                 onChange={this.onInputChange}
               />
@@ -55,7 +62,8 @@ export class SignUp extends Component {
               helperText={<HelperText>Enter a password.</HelperText>}
             >
               <Input
-                value={this.state.passwordConfirmation}
+                name="password"
+                value={this.state.password}
                 onChange={this.onInputChange}
               />
             </TextField>
@@ -66,7 +74,8 @@ export class SignUp extends Component {
               helperText={<HelperText>Enter your password again.</HelperText>}
             >
               <Input
-                value={this.state.username}
+                name="passwordConfirmation"
+                value={this.state.passwordConfirmation}
                 onChange={this.onInputChange}
               />
             </TextField>

@@ -44,18 +44,16 @@ export class EntryLog extends Component {
     this.setState({showEntryForm: true});
   }
 
-  handleToUpdate = (newEntry) => {
-    console.log('newEntry', newEntry);
-    this.setState({ entries: [...this.state.entries, newEntry] });
-  }
+  // add newEntry to props
+  // this.setState({ entries: [...this.state.entries, newEntry] });
 
-  componentDidUpdate(prevState) {
-    console.log(prevState);
-    // Typical usage (don't forget to compare props):
-    // if (this.state.entities.length !== prevState.entities.length) {
-    //   this.fetchData(this.props.entities);
-    // }
-  }
+  // componentDidUpdate(prevState) {
+  //   console.log(prevState);
+  //   // Typical usage (don't forget to compare props):
+  //   // if (this.state.entities.length !== prevState.entities.length) {
+  //   //   this.fetchData(this.props.entities);
+  //   // }
+  // }
 
   render() {
     // destructure props
@@ -98,6 +96,7 @@ export class EntryLog extends Component {
               </tr>
             </thead>
             <tbody className="mdc-data-table__content">
+              {/* pass props to Entry component  */}
               {entries.map(entry => (
                 <Entry key={entry.id} entry={entry} />
               ))}
@@ -112,10 +111,8 @@ export class EntryLog extends Component {
           style={{ position: "absolute", bottom: "15px" }}
           onClick={this.showEntryForm}
         ></Fab>
-
-        {/* pass props to Entry component  */}
         <Dialog open={showEntryForm}>
-          <AddEntry handleToUpdate={this.handleToUpdate} />
+          <AddEntry />
         </Dialog>
         {/* {showEntryForm ? <AddEntry /> : null} */}
       </React.Fragment>
