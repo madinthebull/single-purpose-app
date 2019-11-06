@@ -1,0 +1,17 @@
+import { FETCH_ENTRIES } from "../actions";
+
+const initialState = [];
+export const entriesReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case FETCH_ENTRIES:
+      return {
+        ...state,
+        entries: action.payload.data
+      };
+    default:
+      return state;
+  }
+};
+
+
+export default entriesReducer;

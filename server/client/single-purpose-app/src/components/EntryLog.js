@@ -1,5 +1,8 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import { fetchEntries } from '../redux/actions';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import _ from 'lodash';
 
 // import components to render
 import Entry from './Entry'
@@ -12,29 +15,14 @@ import Dialog from "@material/react-dialog";
 // import PropTypes from "prop-types";
 
 export class EntryLog extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     fab: { text: 'Add a New Entry', id: 0, },
     showEntryForm: false,
-    entries: [],
   }
 
   componentDidMount() {
-    axios
-      .get("https://dev-fatcat.pantheonsite.io/measurements", {
-        headers: {
-          Accept: "application/hal+json",
-          Authorization: "Basic ZmF0Y2F0OmZhdGNhdA=="
-        }
-      })
-      .then(response =>
-        this.setState({
-          entries: response.data
-        })
-      );
+    this.props.fetchEntries();
+    console.log('this.props', this.props);
   }
 
   showEntryForm = e => {
@@ -56,8 +44,9 @@ export class EntryLog extends Component {
   // }
 
   render() {
-    // destructure props
-    const { fab, showEntryForm, entries } = this.state;
+    // destructure state & props
+    const { fab, showEntryForm } = this.state;
+    const { entries } = this.props;
 
     return (
       <React.Fragment>
@@ -97,7 +86,7 @@ export class EntryLog extends Component {
             </thead>
             <tbody className="mdc-data-table__content">
               {/* pass props to Entry component  */}
-              {entries.map(entry => (
+              {_.map(entries, entry => (
                 <Entry key={entry.id} entry={entry} />
               ))}
             </tbody>
@@ -120,4 +109,14 @@ export class EntryLog extends Component {
   }
 }
 
-export default EntryLog;
+const mapStateToProps = state => {
+  return { entries: state.entries.entries }
+}
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ fetchEntries }, dispatch);
+};
+
+export default connect(
+  mapStateToProps, mapDispatchToProps
+)(EntryLog);
