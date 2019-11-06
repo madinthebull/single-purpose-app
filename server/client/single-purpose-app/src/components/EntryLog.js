@@ -35,12 +35,16 @@ export class EntryLog extends Component {
   // add newEntry to props
   // this.setState({ entries: [...this.state.entries, newEntry] });
 
-  // componentDidUpdate(prevState) {
-  //   console.log(prevState);
-  //   // Typical usage (don't forget to compare props):
-  //   // if (this.state.entities.length !== prevState.entities.length) {
-  //   //   this.fetchData(this.props.entities);
-  //   // }
+  // Update component when we create a new company
+  // shouldComponentUpdate(nextProps, nextState, nextContext) {
+  //   console.log('nextProps',nextProps);
+  //   if (nextProps.entries) {
+  //     if (nextProps.entries.length === 1) {
+  //       // get all entries and update
+  //       this.props.fetchEntries()
+  //     }
+  //     return true
+  //   }
   // }
 
   render() {
@@ -101,7 +105,7 @@ export class EntryLog extends Component {
           onClick={this.showEntryForm}
         ></Fab>
         <Dialog open={showEntryForm}>
-          <AddEntry />
+          <AddEntry/>
         </Dialog>
         {/* {showEntryForm ? <AddEntry /> : null} */}
       </React.Fragment>

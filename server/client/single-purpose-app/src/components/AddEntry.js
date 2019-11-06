@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import ButtonComponent from './ButtonComponent';
+import { createEntry } from "../redux/actions";
+import { connect } from "react-redux";
 
 // import Material Design components
 import TextField, { HelperText, Input } from "@material/react-text-field";
@@ -11,7 +13,6 @@ import {
 
 // import libraries
 import moment from 'moment'
-import axios from 'axios'
 
 // import PropTypes from "prop-types";
 
@@ -36,6 +37,8 @@ export class AddEntry extends Component {
 
   // On form submit, send entry data to db
   onFormSubmit = e => {
+    e.preventDefault();
+
     const {
       date,
       measurement, user, id
@@ -49,14 +52,8 @@ export class AddEntry extends Component {
     };
 
     console.log('newEntry', newEntry);
-    // axios
-    //   .post("https://dev-fatcat.pantheonsite.io/measurements", { newEntry })
-    //   .then(function(response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
+
+    this.props.createEntry(newEntry);
 
     //reset form
     this.setState({
@@ -107,4 +104,10 @@ export class AddEntry extends Component {
   }
 }
 
-export default AddEntry;
+const mapDispatchToProps = dispatch => {
+  return {
+    createEntry: newEntry => dispatch(createEntry(newEntry))
+  }
+};
+
+export default connect (null, mapDispatchToProps)(AddEntry);

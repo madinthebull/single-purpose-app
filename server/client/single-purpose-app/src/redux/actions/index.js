@@ -1,10 +1,11 @@
 import axios from "axios";
 
 export const FETCH_ENTRIES = "fetch_entries";
+export const CREATE_ENTRY = "create_entry";
 
 const rootUrl = "https://dev-fatcat.pantheonsite.io/measurements";
 
-// get all notifications for the logged in user
+// get all entries in db
 export function fetchEntries() {
   const request = axios
     .get(`${rootUrl}`, {
@@ -18,4 +19,12 @@ export function fetchEntries() {
     type: FETCH_ENTRIES,
     payload: request
   };
+}
+
+// create new entry
+export function createEntry(newEntry) {
+  return {
+    type: CREATE_ENTRY,
+    newEntry
+  }
 }

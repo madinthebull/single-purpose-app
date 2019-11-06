@@ -1,14 +1,20 @@
-import { FETCH_ENTRIES } from "../actions";
+import { FETCH_ENTRIES, CREATE_ENTRY } from "../actions";
 
 const initialState = [];
-export const entriesReducer = (state = initialState, action) => {
+export const entriesReducer = (state = initialState, action, newEntry) => {
   switch (action.type) {
     case FETCH_ENTRIES:
       return {
         ...state,
         entries: action.payload.data
       };
-    default:
+    case CREATE_ENTRY:
+      return {
+        ...state,
+        newEntry
+      }
+
+      default:
       return state;
   }
 };
