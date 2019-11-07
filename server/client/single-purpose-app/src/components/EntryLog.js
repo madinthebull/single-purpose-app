@@ -75,9 +75,10 @@ export class EntryLog extends Component {
     console.log('newEntry', newEntry);
     this.props.createEntry(newEntry);
 
+    // Show entry screen with animation
     this.setState({showEntryScreenSuccess: true});
-
     setTimeout(() => {
+      // after x amount of time, hide success screen
       this.setState({ showEntryScreenSuccess: false });
     }, 4000);
 
@@ -94,19 +95,19 @@ export class EntryLog extends Component {
   }
 
   // Update component when we create a new company
-  componentDidUpdate(prevProps) {
-    console.log("this.props.entries before fetching entries", this.props.entries);
-    console.log("prevProps before fetching entries", prevProps);
-    if (prevProps.entries.length !== this.props.entries.length) {
-      this.props.fetchEntries();
+  // componentDidUpdate(prevProps) {
+  //   console.log("this.props.entries before fetching entries", this.props.entries);
+  //   console.log("prevProps before fetching entries", prevProps);
+  //   if (prevProps.entries.length !== this.props.entries.length) {
+  //     this.props.fetchEntries();
 
-        console.log(
-          "this.props.entries after fetching entries",
-          this.props.entries
-        );
-        console.log("prevProps after fetching entries", prevProps);
-    }
-  }
+  //       console.log(
+  //         "this.props.entries after fetching entries",
+  //         this.props.entries
+  //       );
+  //       console.log("prevProps after fetching entries", prevProps);
+  //   }
+  // }
 
   render() {
     // destructure state & props

@@ -1,5 +1,5 @@
 import React from "react";
-import emoji from "../assets/emoji.svg";
+import emoji from "../assets/static/emoji.svg";
 
 function EntryScreenSuccess() {
   return (

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import PropTypes from "prop-types";
 import ButtonComponent from "./ButtonComponent";
 import { Link } from "react-router-dom";
-import logo from '../assets/logo.svg'
+import logo from '../assets/static/logo.svg'
 
 // import Material Design components
 import TextField, { HelperText, Input } from "@material/react-text-field";

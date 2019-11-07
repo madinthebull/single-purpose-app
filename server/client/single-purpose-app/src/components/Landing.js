@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import PropTypes from "prop-types";
 import ButtonComponent from './ButtonComponent'
 import { Link } from 'react-router-dom'
-import logo from '../assets/logo.svg'
+import logo from '../assets/static/logo.svg'
 
 export class Landing extends Component {
   render() {
