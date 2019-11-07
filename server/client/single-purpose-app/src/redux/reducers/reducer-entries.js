@@ -10,18 +10,11 @@ export const entriesReducer = (state = initialState, action) => {
       };
     case CREATE_ENTRY:
       return {
-        entries: [
-          ...state.entries,
-          {
-            user: action.newEntry.user,
-            date: action.newEntry.date,
-            measurement: action.newEntry.measurement,
-            id: action.newEntry.id
-          }
-        ]
+        ...state,
+        entries: action.payload.data
       }
 
-      default:
+    default:
       return state;
   }
 };
