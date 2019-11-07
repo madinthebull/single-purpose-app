@@ -1,16 +1,22 @@
 import React, { Component } from "react";
-import { fetchEntries } from '../redux/actions';
+import { fetchEntries, createEntry } from '../redux/actions';
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import _ from 'lodash';
 
 // import components to render
-import Entry from './Entry'
-import AddEntry from './AddEntry'
+import DataTable from './DataTable'
+import EntryScreenSuccess from './EntryScreenSuccess'
 
 // import Material Design components
 import Fab from "@material/react-fab";
-import Dialog from "@material/react-dialog";
+import Dialog, { DialogContent, DialogFooter, DialogButton } from "@material/react-dialog";
+import TextField, { HelperText, Input } from "@material/react-text-field";
+
+// import libraries
+import moment from 'moment'
+import uuid from 'uuid/v4'
+
+ // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
+
 
 // import PropTypes from "prop-types";
 
@@ -18,11 +24,19 @@ export class EntryLog extends Component {
   state = {
     fab: { text: 'Add a New Entry', id: 0, },
     showEntryForm: false,
+    showEntryScreenSuccess: false,
+    date: '',
+    measurement: '',
+    uid: '',
+    id: '',
+    buttons: [
+      { text: 'Cancel', id: 1, },
+      { text: 'Add Entry', id: 2, },
+    ],
   }
 
   componentDidMount() {
     this.props.fetchEntries();
-    console.log('this.props', this.props);
   }
 
   showEntryForm = e => {
@@ -32,70 +46,86 @@ export class EntryLog extends Component {
     this.setState({showEntryForm: true});
   }
 
-  // add newEntry to props
-  // this.setState({ entries: [...this.state.entries, newEntry] });
+  // As data is entered, capture in state
+  onInputChange = e => {
+    var date = new Date();
+
+    const uniqueId = uuid();
+
+    this.setState({ [e.target.name]: e.target.value });
+    this.setState({uid: 'Madeline', id: uniqueId, date: date});
+  }
+
+  // On form submit, send entry data to db
+  onFormSubmit = e => {
+    e.preventDefault();
+
+    const {
+      date,
+      measurement, uid, id
+    } = this.state
+
+    const newEntry = {
+      date,
+      measurement,
+      uid,
+      id,
+    };
+
+    console.log('newEntry', newEntry);
+    this.props.createEntry(newEntry);
+
+    this.setState({showEntryScreenSuccess: true});
+
+    setTimeout(() => {
+      this.setState({ showEntryScreenSuccess: false });
+    }, 4000);
+
+    //reset form
+    this.setState({
+      date: "",
+      measurement: "",
+      uid: "",
+      id: "",
+      fab: { text: "Add a New Entry", id: 0 },
+      showEntryForm: false,
+      buttons: [{ text: "Cancel", id: 1 }, { text: "Add Entry", id: 2 }]
+    });
+  }
 
   // Update component when we create a new company
-  // shouldComponentUpdate(nextProps, nextState, nextContext) {
-  //   console.log('nextProps',nextProps);
-  //   if (nextProps.entries) {
-  //     if (nextProps.entries.length === 1) {
-  //       // get all entries and update
-  //       this.props.fetchEntries()
-  //     }
-  //     return true
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+    console.log("this.props.entries before fetching entries", this.props.entries);
+    console.log("prevProps before fetching entries", prevProps);
+    if (prevProps.entries.length !== this.props.entries.length) {
+      this.props.fetchEntries();
+
+        console.log(
+          "this.props.entries after fetching entries",
+          this.props.entries
+        );
+        console.log("prevProps after fetching entries", prevProps);
+    }
+  }
 
   render() {
     // destructure state & props
-    const { fab, showEntryForm } = this.state;
+    const { fab, showEntryScreenSuccess, showEntryForm } = this.state;
     const { entries } = this.props;
+    // Get timestamp
+    const date = new Date();
+    const currentDate = moment(date).format('L');
+    const currentTime = moment(date).format('LT');
 
+    if (showEntryScreenSuccess) {
+      return (
+        <EntryScreenSuccess />
+      )
+    } else {
     return (
       <React.Fragment>
-        <div className="mdc-data-table">
-          <table className="mdc-data-table__table" aria-label="">
-            <thead>
-              <tr className="mdc-data-table__header-row">
-                <th
-                  className="mdc-data-table__header-cell"
-                  role="columnheader"
-                  scope="col"
-                >
-                  Date
-                </th>
-                <th
-                  className="mdc-data-table__header-cell mdc-data-table__header-cell--numeric"
-                  role="columnheader"
-                  scope="col"
-                >
-                  Time
-                </th>
-                <th
-                  className="mdc-data-table__header-cell mdc-data-table__header-cell--numeric"
-                  role="columnheader"
-                  scope="col"
-                >
-                  Amount
-                </th>
-                <th
-                  className="mdc-data-table__header-cell"
-                  role="columnheader"
-                  scope="col"
-                >
-                  User
-                </th>
-              </tr>
-            </thead>
-            <tbody className="mdc-data-table__content">
-              {/* pass props to Entry component  */}
-              {_.map(entries, entry => (
-                <Entry key={entry.id} entry={entry} />
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {/* data table */}
+        <DataTable entries={entries} />
         {/* overlay button */}
         <Fab
           className="mdc-fab mdc-fab--extended"
@@ -105,22 +135,53 @@ export class EntryLog extends Component {
           onClick={this.showEntryForm}
         ></Fab>
         <Dialog open={showEntryForm}>
-          <AddEntry/>
+          <DialogContent>
+            <p className="addEntryDialog__dateTime--label">Current Date</p>
+            <p className="addEntryDialog__dateTime--display">{currentDate}</p>
+
+            <p className="addEntryDialog__dateTime--label">Current Time</p>
+            <p className="addEntryDialog__dateTime--display">{currentTime}</p>
+
+            {/* Measurement input */}
+            <form>
+              <TextField
+                label="measurement"
+                type="text"
+                helperText={<HelperText>Enter measurement here!</HelperText>}
+              >
+                <Input
+                  name="measurement"
+                  value={this.state.measurement}
+                  onChange={this.onInputChange}
+                />
+              </TextField>
+            </form>
+          </DialogContent>
+          <DialogFooter>
+            <DialogButton action="dismiss">Dismiss</DialogButton>
+            <DialogButton action="accept" isDefault onClick={this.onFormSubmit}>
+              Accept
+            </DialogButton>
+          </DialogFooter>
         </Dialog>
-        {/* {showEntryForm ? <AddEntry /> : null} */}
       </React.Fragment>
     );
+    }
   }
 }
 
 const mapStateToProps = state => {
-  return { entries: state.entries.entries }
-}
-
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ fetchEntries }, dispatch);
+  return {
+    entries: state.entries.entries,
+    createEntry: state.createEntry
+  }
 };
 
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(EntryLog);
+const mapDispatchToProps = dispatch => {
+  return {
+    createEntry: newEntry => dispatch(createEntry(newEntry)),
+    fetchEntries: () => dispatch(fetchEntries())
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EntryLog);

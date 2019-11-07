@@ -1,7 +1,7 @@
 import { FETCH_ENTRIES, CREATE_ENTRY } from "../actions";
 
 const initialState = [];
-export const entriesReducer = (state = initialState, action, newEntry) => {
+export const entriesReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_ENTRIES:
       return {
@@ -10,8 +10,15 @@ export const entriesReducer = (state = initialState, action, newEntry) => {
       };
     case CREATE_ENTRY:
       return {
-        ...state,
-        newEntry
+        entries: [
+          ...state.entries,
+          {
+            user: action.newEntry.user,
+            date: action.newEntry.date,
+            measurement: action.newEntry.measurement,
+            id: action.newEntry.id
+          }
+        ]
       }
 
       default:
